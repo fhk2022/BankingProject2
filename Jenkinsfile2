@@ -9,7 +9,7 @@ pipeline {
    stage ('checkout') {
      steps  {
        echo  'Checkout the source code from github'
-       git branch: '/*master', url: 'https://github.com/fhk2022/BankingProject2.git'
+       git 'https://github.com/fhk2022/BankingProject2.git'
             }
         }
    stage('Package the Application') {
