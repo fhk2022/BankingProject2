@@ -64,10 +64,11 @@ pipeline {
      }
   stage('Terraform plan'){
     steps {
-      sh 'terraform plan'
-          }
-
-     }
+    withCredentials([sshUserPrivateKey(credentialsId: 'my-ssh-key', keyFileVariable: 'SSH_KEY')]) {
+  sh 'eval `ssh-agent -s` && ssh-add $SSH_KEY'
+  sh 'terraform plan'
+         }
+}
   stage('Terraform apply'){
     steps {
       sh 'terraform apply -auto-approve'
@@ -77,9 +78,6 @@ pipeline {
   stage ('Configure Test-server with Terraform, Ansible and then Deploying'){
             steps {
                 dir('test-server'){
-               withCredentials([sshUserPrivateKey(credentialsId: 'my-ssh-key', keyFileVariable: 'SSH_KEY')]) {
-  sh 'eval `ssh-agent -s` && ssh-add $SSH_KEY'
-}
 
                 sh 'terraform init'
                 sh 'terraform validate'
