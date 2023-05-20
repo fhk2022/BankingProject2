@@ -11,6 +11,7 @@ stage('source code'){
 }
 stage('create infra with terraform'){
  steps{
+   dir('test-server'){
    sh 'chmod 400 Project2.pem'
    sh 'terraform init'
    sh 'terraform validate'
