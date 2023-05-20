@@ -1,0 +1,21 @@
+pipeline{
+agent any
+tools{
+terraform 'terraform'
+    }
+stages{
+stage('source code'){
+ steps{
+   git 'https://github.com/fhk2022/BankingProject2.git'
+   }
+}
+stage('create infra with terraform'){
+ steps{
+   sh 'chmod 400 Project2.pem'
+   sh 'terraform init'
+   sh 'terraform validate'
+   sh 'terraform apply --auto-approve'
+      }
+  }
+}
+}
