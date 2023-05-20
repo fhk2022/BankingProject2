@@ -3,14 +3,16 @@
   become: true
   connection : ssh
   tasks : 
-  - name: Updating yum
-    command : sudo yum update
-
-  - name : Install Docker
-    command : sudo yum install docker -y
-
-  - name : Start Docker Service
-    command : sudo systemctl start docker
-
-  - name : Run the Bank application
-    command: sudo docker run -itd -p 8084:8081 faisalhkdocker/bankingproject:latest 
+   - name: apt update
+     command: sudo apt update
+   - name: install python & pip
+     command: sudo apt install -y python-pip
+   - name: Install docker
+     command: sudo apt-get install -y docker.io
+     become: yes
+     become_user: root
+   - name: start docker service
+     command: sudo systemctl start docker
+     become: yes
+   - name : Run the Bank application
+     command: sudo docker run -itd -p 8084:8081 faisalhkdocker/bankingproject:latest 
