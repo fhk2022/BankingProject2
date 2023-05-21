@@ -9,16 +9,16 @@ resource "aws_instance" "test-server" {
     private_key = file("./Project2.pem")
     host     = self.public_ip
   }
-  provisioner "remote-exec" {
-    inline = [ "echo 'wait to start instance' "]
+  provisioner "local-exec" {
+    command = "sleep 60 && echo 'Instance ready'"
   }
   tags = {
     Name = "test-server"
   }
   provisioner "local-exec" {
-        command = " echo ${aws_instance.test-server.public_ip} > inventory "
+    command = " echo ${aws_instance.test-server.public_ip} > inventory "
   }
   provisioner "local-exec" {
-        command = "ansible-playbook /var/lib/jenkins/workspace/Banking-Project/test-server/finance-playbook.yml"
+    command = "ansible-playbook /var/lib/jenkins/workspace/Banking-Project/test-server/finance-playbook.yml"
   } 
 }
