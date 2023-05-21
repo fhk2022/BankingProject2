@@ -6,11 +6,6 @@ pipeline {
    terraform 'terraform'
 
         }
- environment {
-        AWS_ACCESS_KEY_ID = '${Access_Key}'
-        AWS_SECRET_KEY = '${Secret_Key}'
-        }
-
  stages {
    stage ('checkout') {
      steps  {
