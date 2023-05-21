@@ -1,10 +1,10 @@
-- name : Configure Docker on test-server Instances
-  hosts : all
+---
+- hosts: all
   become: true
   connection : ssh
-  tasks : 
+  tasks:
    - name: apt update
-     command: sudo apt-get update
+     command: sudo apt update
    - name: install python & pip
      command: sudo apt install -y python-pip
    - name: Install docker
@@ -14,5 +14,7 @@
    - name: start docker service
      command: sudo systemctl start docker
      become: yes
-   - name : Run the Bank application
+     become_user: root
+   - name: deploy the image from docker-hub and run as container
      command: sudo docker run -itd -p 8084:8081 faisalhkdocker/bankingproject:latest 
+    
