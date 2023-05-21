@@ -1,3 +1,4 @@
+---
 - name : Configure Docker on EC2 Instances
   hosts : all
   become: true
@@ -16,5 +17,3 @@
 
   - name: Deploy Docker Container
     command: sudo docker run -itd -p 8084:8081 faisalhkdocker/bankingproject:latest 
-    
-    
