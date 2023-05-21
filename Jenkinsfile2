@@ -42,7 +42,7 @@ pipeline {
            }
             }
   
-  stage ('Configure Test-server with Terraform, Ansible and then Deploying'){
+  stage ('create infra with terraform with Terraform, Ansible and then Deploying'){
             steps {
                 dir('test-server'){
                 sh 'chmod 400 Project2.pem'
